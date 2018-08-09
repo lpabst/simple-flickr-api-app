@@ -1,7 +1,60 @@
 
 .home{
     width: 100%;
+    min-height: 100vh;
     position: relative;
 }
 
+.searchResults{
+    width: 100%;
+    padding: 50px 0px;
+    border-top: 1px solid black;
+}
 
+.searchResult{
+    width: 100%;
+    height: 60px;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.thumbnail{
+    width: 40px;
+    height: 40px;
+    border-radius: 1px;
+    display: inline-block;
+}
+
+.title{
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.fullSizeOverlay{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+}
+
+.closeX{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(190, 190, 190, 0.5);
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    line-height: 40px;
+    transition: all 0.2s;
+}
+
+.closeX:hover{
+    transform: scale(1.1);
+    background: rgba(190, 190, 190, 0.8);
+}
