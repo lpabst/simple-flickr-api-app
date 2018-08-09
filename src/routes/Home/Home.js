@@ -14,7 +14,9 @@ class Home extends Component {
     }
   }
 
-  searchPhotos(){
+  searchPhotos(e){
+    e.preventDefault();
+    
     axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${config.apiKey}&tags=${this.state.userInput}&per_page=25&format=json&nojsoncallback=1`)
     .then( res => {
       let photos = res.data.photos.photo;
@@ -47,9 +49,11 @@ class Home extends Component {
     return (
       <div className="home">
 
-        <p>Search Flickr For Photos</p>
-        <input onChange={(e) => this.setState({userInput: e.target.value})} placeholder='enter search term' />
-        <button onClick={() => this.searchPhotos()} >Search</button>
+        <p className='header'>Search Flickr For Photos</p>
+        <form className='searchForm' onSubmit={(e) => this.searchPhotos(e)} >
+          <input onChange={(e) => this.setState({userInput: e.target.value})} placeholder='enter search term' />
+          <div onClick={(e) => this.searchPhotos(e)} >Search</div>
+        </form>
 
         <section className='searchResults'>
           { this.state.photos.map( (item, i) => {
