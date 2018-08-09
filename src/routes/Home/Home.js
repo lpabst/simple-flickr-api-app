@@ -3,6 +3,8 @@ import './Home.css';
 import axios from 'axios';
 import config from './../../config.js';
 
+import SearchResults from './../../components/SearchResults';
+
 class Home extends Component {
   constructor(props){
     super(props);
@@ -12,6 +14,10 @@ class Home extends Component {
       showFullSizeOverlay: false,
       selectedImage: {},
     }
+
+    this.searchPhotos = this.searchPhotos.bind(this);
+    this.openFullSizeOverlay = this.openFullSizeOverlay.bind(this);
+    this.closeFullSizeOverlay = this.closeFullSizeOverlay.bind(this);
   }
 
   searchPhotos(e){
@@ -55,15 +61,7 @@ class Home extends Component {
           <div onClick={(e) => this.searchPhotos(e)} >Search</div>
         </form>
 
-        <section className='searchResults'>
-          { this.state.photos.map( (item, i) => {
-              return <div key={i} className='searchResult' onClick={() => this.openFullSizeOverlay(item)} title={item.title} >
-                <img className='thumbnail' src={item.thumbnail} alt={item.shortTitle} />
-                <p className='title'>{item.shortTitle}</p>
-              </div>
-            })
-          }
-        </section>
+        <SearchResults photos={this.state.photos} openFullSizeOverlay={this.openFullSizeOverlay} />
 
         { this.state.showFullSizeOverlay &&
           <div className='fullSizeOverlay' >
