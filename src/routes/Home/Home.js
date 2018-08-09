@@ -38,7 +38,7 @@ class Home extends Component {
       let photos = res.data.photos.photo;
 
       photos.forEach(photo => {
-        photo.thumbnail = `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_t.jpg`;
+        photo.thumbnail = `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_q.jpg`;
         photo.large = `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_h.jpg`;
         photo.shortTitle = photo.title.length < 28 ? photo.title : photo.title.substring(0, 25) + '...';
       })

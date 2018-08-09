@@ -56,12 +56,10 @@
 }
 
 .searchResult{
-    width: 130px;
-    height: 130px;
-    border: 1px solid black;
-    margin: 10px 10px;
-    padding: 10px 10px;
-    box-shadow: 1px 1px 1px black;
+    width: 160px;
+    height: 170px;
+    margin: 2px 2px;
+    padding: 2px 2px;
     display: inline-block;
     cursor: pointer;
     vertical-align: top;
@@ -69,16 +67,16 @@
 }
 
 .thumbnail{
-    width: 90px;
-    height: 90px;
+    max-width: 140px;
+    max-height: 140px;
     border-radius: 1px;
-    margin-left: 10px;
+    margin-left: 2px;
 }
 
 .title{
     width: 90px;
     font-size: 11px;
-    margin-left: 10px;
+    margin-left: 2px;
 }
 
 .fullSizeOverlay{
