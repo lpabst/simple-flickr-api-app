@@ -4,6 +4,7 @@ import axios from 'axios';
 import config from './../../config.js';
 
 import SearchResults from './../../components/SearchResults';
+import FullSizeOverlay from './../../components/FullSizeOverlay';
 
 class Home extends Component {
   constructor(props){
@@ -29,7 +30,7 @@ class Home extends Component {
 
       photos.forEach(photo => {
         photo.thumbnail = `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_t.jpg`;
-        photo.original = `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_h.jpg`;
+        photo.large = `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_h.jpg`;
         photo.shortTitle = photo.title.length < 28 ? photo.title : photo.title.substring(0, 25) + '...';
       })
 
@@ -64,10 +65,7 @@ class Home extends Component {
         <SearchResults photos={this.state.photos} openFullSizeOverlay={this.openFullSizeOverlay} />
 
         { this.state.showFullSizeOverlay &&
-          <div className='fullSizeOverlay' >
-            <p onClick={() => this.closeFullSizeOverlay()} className='closeX' >X</p>
-            <center><img src={this.state.selectedImage.original} alt={this.state.selectedImage.title} className='fullSizeImage' id='fullSizeImage' /></center>
-          </div>
+          <FullSizeOverlay selectedImage={this.state.selectedImage} closeFullSizeOverlay={this.closeFullSizeOverlay} />
         }
 
       </div>
