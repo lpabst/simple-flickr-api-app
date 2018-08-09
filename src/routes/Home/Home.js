@@ -10,6 +10,7 @@ class Home extends Component {
       userInput: '',
       photos: [],
       showFullSizeOverlay: false,
+      selectedImage: {},
     }
   }
 
@@ -17,22 +18,28 @@ class Home extends Component {
     axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${config.apiKey}&tags=${this.state.userInput}&per_page=25&format=json&nojsoncallback=1`)
     .then( res => {
       let photos = res.data.photos.photo;
-      console.log(photos)
-      console.log(res)
+
+      photos.forEach(photo => {
+        photo.thumbnail = `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_t.jpg`;
+        photo.original = `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_h.jpg`;
+        photo.shortTitle = photo.title.length < 28 ? photo.title : photo.title.substring(0, 25) + '...';
+      })
+
       this.setState({photos});
     })
   }
 
   openFullSizeOverlay(item){
-    console.log(item);
     this.setState({
-      showFullSizeOverlay: true
+      showFullSizeOverlay: true,
+      selectedImage: item
     })
   }
 
   closeFullSizeOverlay(){
     this.setState({
-      showFullSizeOverlay: false
+      showFullSizeOverlay: false,
+      selectedImage: {}
     })
   }
 
@@ -45,19 +52,19 @@ class Home extends Component {
         <button onClick={() => this.searchPhotos()} >Search</button>
 
         <section className='searchResults'>
-          <p>Search Results</p>
           { this.state.photos.map( (item, i) => {
-              return <div key={i} className='searchResult' onClick={() => this.openFullSizeOverlay(item)} >
-                <img className='thumbnail' src="" alt="" />
-                <p className='title'>{item.title}</p>
+              return <div key={i} className='searchResult' onClick={() => this.openFullSizeOverlay(item)} title={item.title} >
+                <img className='thumbnail' src={item.thumbnail} alt={item.shortTitle} />
+                <p className='title'>{item.shortTitle}</p>
               </div>
             })
           }
         </section>
 
         { this.state.showFullSizeOverlay &&
-          <div className='fullSizeOverlay'>
+          <div className='fullSizeOverlay' >
             <p onClick={() => this.closeFullSizeOverlay()} className='closeX' >X</p>
+            <center><img src={this.state.selectedImage.original} alt={this.state.selectedImage.title} className='fullSizeImage' id='fullSizeImage' /></center>
           </div>
         }
 
