@@ -14,6 +14,7 @@ class Home extends Component {
       photos: [],
       showFullSizeOverlay: false,
       selectedImage: {},
+      errorMessage: '',
     }
 
     this.searchPhotos = this.searchPhotos.bind(this);
@@ -26,6 +27,14 @@ class Home extends Component {
     
     axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${config.apiKey}&tags=${this.state.userInput}&per_page=25&format=json&nojsoncallback=1`)
     .then( res => {
+      if (!res.data || !res.data.photos || !res.data.photos.photo || res.data.photos.photo.length === 0){
+        return this.setState({
+          errorMessage: `No search results were returned from Flickr for "${this.state.userInput}"`,
+          photos: [],
+        })
+      }
+
+      let errorMessage = '';
       let photos = res.data.photos.photo;
 
       photos.forEach(photo => {
@@ -34,7 +43,7 @@ class Home extends Component {
         photo.shortTitle = photo.title.length < 28 ? photo.title : photo.title.substring(0, 25) + '...';
       })
 
-      this.setState({photos});
+      this.setState({photos, errorMessage});
     })
   }
 
@@ -66,6 +75,10 @@ class Home extends Component {
 
         { this.state.showFullSizeOverlay &&
           <FullSizeOverlay selectedImage={this.state.selectedImage} closeFullSizeOverlay={this.closeFullSizeOverlay} />
+        }
+
+        { this.state.errorMessage && 
+          <p className='errorMessage' >{this.state.errorMessage}</p>
         }
 
       </div>

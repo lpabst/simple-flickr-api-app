@@ -120,6 +120,14 @@
     height: auto;
 }
 
+.errorMessage{
+    width: 80%;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    margin: 0 auto;
+}
+
 @media screen and (min-width: 490px){
     .searchResults{
         width: 98%;
