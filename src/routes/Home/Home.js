@@ -25,7 +25,7 @@ class Home extends Component {
   searchPhotos(e){
     e.preventDefault();
     
-    axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${config.apiKey}&tags=${this.state.userInput}&per_page=25&format=json&nojsoncallback=1`)
+    axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${config.apiKey}&text=${this.state.userInput}&per_page=25&format=json&nojsoncallback=1`)
     .then( res => {
       if (!res.data || !res.data.photos || !res.data.photos.photo || res.data.photos.photo.length === 0){
         return this.setState({
