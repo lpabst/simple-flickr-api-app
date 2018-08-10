@@ -82,8 +82,8 @@ class Home extends Component {
   }
 
   render() {
-    let backButtonBackground = this.state.backButtonActive ? "#006dac" : "#ccc";
-    let nextButtonBackground = this.state.nextButtonActive ? "#006dac" : "#ccc";
+    let backButtonVisibility = this.state.backButtonActive ? 'visible' : 'hidden';
+    let nextButtonVisibility = this.state.nextButtonActive ? 'visible' : 'hidden';
 
     return (
       <div className="home">
@@ -92,9 +92,9 @@ class Home extends Component {
         <form className='searchForm' onSubmit={(e) => this.searchPhotos(e)} >
           <input onChange={(e) => this.setState({userInput: e.target.value})} placeholder='enter search term' />
           <div className='searchFormControls'>
-            <div onClick={() => this.getNewPage(-1)} style={{background: backButtonBackground}} >Back</div>
+            <div onClick={() => this.getNewPage(-1)} style={{visibility: backButtonVisibility}} >Back</div>
             <div onClick={(e) => this.searchPhotos(e)} >Search</div>
-            <div onClick={() => this.getNewPage(1)} style={{background: nextButtonBackground}} >Next</div>
+            <div onClick={() => this.getNewPage(1)} style={{visibility: nextButtonVisibility}} >Next</div>
           </div>
         </form>
 
